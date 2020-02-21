@@ -1,0 +1,25 @@
+body {
+  font-family: "Lato", sans-serif; /* Everything related to fonts, goes in body */
+  font-weight: 400;
+  /* font-size: 16px; */
+  line-height: 1.7;
+  color: $color-text-primary;
+
+  h1 {
+    font-size: xx-large;
+  }
+  
+  h1, p {
+    color: $color-text-secondary;
+  }
+  
+  h2, p, label {
+    font-size: large;
+  }
+  
+  a {
+    font-size: 20px;
+    color: $color-text-secondary;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,13 @@
+.header {
+  width: 900px;
+  margin-bottom: 2em;
+  
+  .logo{
+    height: 5rem;
+    background-color: $color-bg-secondary;
+  }
+  .divider {
+    height: .5rem;
+    background-color: $color-text-primary;
+  }
+}

@@ -1,0 +1,38 @@
+.form-container {
+
+  background-color: $color-bg-primary;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  
+  .text-info {
+    width: 700px;
+    p {
+      font-size: 1.6em;
+      text-align: justify;
+    }
+    padding-bottom: 2em;
+  }
+
+  .form {
+    width: 600px;
+  }
+
+  .field {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+
+    select {
+      justify-self: center;
+    }
+  }
+
+  button {
+    margin: 5rem;
+    align-self: center;
+  }
+}

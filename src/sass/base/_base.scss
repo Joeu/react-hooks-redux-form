@@ -1,0 +1,30 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  // defines what 1rem is
+  font-size: 62.5%; /* technique to allow user to change default font-size */
+  background-color: $color-bg-primary;
+}
+
+/* Inheritance */
+body {
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 0 3rem; /* Dividing 30px by 10 - our font-size - giving 3rem */
+
+  @include apply-layout(phone) {
+    padding: 0;
+  }
+
+  i {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
