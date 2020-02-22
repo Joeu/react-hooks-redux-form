@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Header from './components/header';
 import Form from './components/form';
-
-import { fetchCountries } from './api/apiService';
+import Footer from './components/footer';
+import { useDispatch } from 'react-redux';
+import { fetchCountries } from './actions/formActions';
 
 function App() {
-  const [countries, setCountries] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetchCountries();
-      setCountries(res);
-    }
-
-    fetchData();
-  }, [])
+    dispatch(fetchCountries());
+  }, [dispatch])
 
   return (
-    <main className="main">
+    <main className="app-container">
       <Header />
-      <Form countries={countries} />
+      <Form />
+      <Footer />
     </main>
   );
 }

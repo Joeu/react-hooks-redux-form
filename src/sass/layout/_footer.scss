@@ -1,0 +1,21 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+
+  hr {
+    width: 80%;
+    align-self: center;
+    background-color: $color-text-secondary;
+  }
+  i {
+    padding: .2em;
+    font-size: x-large;
+    color: $color-bg-secondary;
+  }
+}
