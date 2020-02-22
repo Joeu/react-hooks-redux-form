@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useLocalStorage from '../hooks/localStorageHook';
 import {
   regSSN,
@@ -12,7 +12,16 @@ const Form = () => {
   const [phone, setPhone] = useLocalStorage('form-input-phone');
   const [email, setEmail] = useLocalStorage('form-input-email');
 
+  const ssnInputRef = useRef(null);
+  const phoneInputRef = useRef(null);
+  const emailInputRef = useRef(null);
   const countries = useSelector(state => state?.payload);
+
+  useEffect(() => {
+    setValidationStyle(ssn, regSSN, ssnInputRef);
+    setValidationStyle(phone, regPhoneNumber, phoneInputRef);
+    setValidationStyle(email, regEmail, emailInputRef);
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,17 +44,25 @@ const Form = () => {
     console.log('clean');
   }
 
-  const handleKeyUp = (e, validator, setField) => {
-    setField(e.target.value);
-    validateInput(e.target.value, validator);
+  const handleChange = (e, validator, setField, ref) => {
+    console.log(e.target);
+    const value = e.target.value;
+    setField(value);
+    setValidationStyle(value, validator, ref);
   }
+
+  const setValidationStyle = (value, validator, ref) => {
+    const valid = validateInput(value, validator);
+    ref.current.style = valid ? 'border-color: blue;' : 'border-color: red;';
+  }
+
 
   const validateInput = (value, regex) => regex.test(value);
 
-  const renderField = (label, validator, setField, defaultValue) => (
+  const renderField = (label, validator, setField, defaultValue, ref) => (
     <div className="field">
       <label>{label}</label>
-      <input required value={defaultValue} onChange={(e) => handleKeyUp(e, validator, setField, defaultValue)} />
+      <input ref={ref} required value={defaultValue} onChange={(e) => handleChange(e, validator, setField, ref)} />
     </div>
   )
 
@@ -54,8 +71,8 @@ const Form = () => {
       <div className="field">
         <label>{label}</label>
         <select required className="country-selector">
-          <option disabled selected>Select a country</option>
-          {options && options.map(item => <option key={item.alpha3Code} value={item.name}>{item.name}</option>)}
+          <option disabled>Select a country</option>
+          {options && options.map(item => <option selected={item.name === "Sweden"} key={item.alpha3Code} value={item.name}>{item.name}</option>)}
         </select>
       </div>
     )
@@ -70,9 +87,9 @@ const Form = () => {
       </div>
 
       <form className="form">
-        {renderField('Social security number', regSSN, setSsn, ssn)}
-        {renderField('Phone', regPhoneNumber, setPhone, phone)}
-        {renderField('Email', regEmail, setEmail, email)}
+        {renderField('Social security number', regSSN, setSsn, ssn, ssnInputRef)}
+        {renderField('Phone', regPhoneNumber, setPhone, phone, phoneInputRef)}
+        {renderField('Email', regEmail, setEmail, email, emailInputRef)}
         {renderSelect('Country', countries)}
         <button onClick={handleSubmit}>Submit</button>
       </form>

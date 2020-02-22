@@ -25,9 +25,19 @@
     justify-content: space-between;
     padding: 1rem;
 
+    input {
+      padding-left: .5rem;
+    }
     select {
       justify-self: center;
     }
+  }
+
+    
+
+  button {
+    margin: 5rem;
+    align-self: center;
   }
 
   @include apply-layout(small) {
@@ -50,8 +60,5 @@
     }
   }
 
-  button {
-    margin: 5rem;
-    align-self: center;
-  }
+
 }
