@@ -7,14 +7,13 @@
   align-items: center;
   justify-content: space-around;
   text-align: center;
-  
+
   .text-info {
     width: 700px;
     p {
       font-size: 1.6em;
       text-align: justify;
     }
-    padding-bottom: 2em;
   }
 
   .form {
@@ -28,6 +27,26 @@
 
     select {
       justify-self: center;
+    }
+  }
+
+  @include apply-layout(small) {
+    .text-info {
+        width: 95%;
+      p {
+        font-size: 2em;
+        text-align: justify;
+      }
+    }
+    .form {
+      width: 90%;
+    }
+    .field {
+      flex-direction: column;
+      input, label {
+        font-size: 2rem;
+        text-align: left;
+      }
     }
   }
 

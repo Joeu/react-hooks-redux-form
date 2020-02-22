@@ -1,11 +1,11 @@
 @mixin apply-layout($breakpoint) {
-  @if $breakpoint == phone {
+  @if $breakpoint == small {
       @media only screen and (max-width: 640px) { @content };
   }
-  @if $breakpoint == tab-port {
+  @if $breakpoint == medium {
       @media only screen and (min-width: 641px) and (max-width: 900px) { @content };
   }
-  @if $breakpoint == tab-land {
+  @if $breakpoint == large {
       @media only screen and (min-width: 901px) and (max-width: 1200px) { @content };
   }
 }

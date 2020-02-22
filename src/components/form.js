@@ -8,19 +8,18 @@ import {
 import { useSelector } from 'react-redux';
 
 const Form = () => {
-  const [formValues, setFormValues] = useLocalStorage('form-input-values');
-  const [ssn, setSsn] = useState();
-  const [phone, setPhone] = useState();
-  const [email, setEmail] = useState();
+  const [ssn, setSsn] = useLocalStorage('form-input-ssn');
+  const [phone, setPhone] = useLocalStorage('form-input-phone');
+  const [email, setEmail] = useLocalStorage('form-input-email');
 
   const countries = useSelector(state => state?.payload);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const success = validateInput(formValues.ssn, regSSN)
-      && validateInput(formValues.phone, regPhoneNumber)
-      && validateInput(formValues.email, regEmail);
+    const success = validateInput(ssn, regSSN)
+      && validateInput(phone, regPhoneNumber)
+      && validateInput(email, regEmail);
 
     if (success) {
       cleanFields();
@@ -29,14 +28,16 @@ const Form = () => {
   }
 
   const cleanFields = () => {
-    setFormValues({});
-    console.log('formValues: ', formValues)
+    setSsn('');
+    setPhone('');
+    setEmail('');
+
+    console.log('clean');
   }
 
   const handleKeyUp = (e, validator, setField) => {
     setField(e.target.value);
     validateInput(e.target.value, validator);
-    setFormValues({ ssn, phone, email });
   }
 
   const validateInput = (value, regex) => regex.test(value);
@@ -44,7 +45,7 @@ const Form = () => {
   const renderField = (label, validator, setField, defaultValue) => (
     <div className="field">
       <label>{label}</label>
-      <input required defaultValue={defaultValue} onKeyUp={(e) => handleKeyUp(e, validator, setField, defaultValue)} />
+      <input required value={defaultValue} onChange={(e) => handleKeyUp(e, validator, setField, defaultValue)} />
     </div>
   )
 
@@ -52,7 +53,7 @@ const Form = () => {
     return (
       <div className="field">
         <label>{label}</label>
-        <select required>
+        <select required className="country-selector">
           <option disabled selected>Select a country</option>
           {options && options.map(item => <option key={item.alpha3Code} value={item.name}>{item.name}</option>)}
         </select>
@@ -69,9 +70,9 @@ const Form = () => {
       </div>
 
       <form className="form">
-        {renderField('Social security number', regSSN, setSsn, formValues.ssn)}
-        {renderField('Phone', regPhoneNumber, setPhone, formValues.phone)}
-        {renderField('Email', regEmail, setEmail, formValues.email)}
+        {renderField('Social security number', regSSN, setSsn, ssn)}
+        {renderField('Phone', regPhoneNumber, setPhone, phone)}
+        {renderField('Email', regEmail, setEmail, email)}
         {renderSelect('Country', countries)}
         <button onClick={handleSubmit}>Submit</button>
       </form>
