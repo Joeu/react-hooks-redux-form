@@ -28,6 +28,10 @@ Run:
 yarn install && yarn start
 ```
 
+## Usage
+
+![Validating email](demo/form-validation.gif)
+
 ## Built With
 
 * [React](https://reactjs.org/)
